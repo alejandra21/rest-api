@@ -138,12 +138,12 @@ router.route('/')
 				// Set DB elements
 				setDBelements(exercise,req.body);
 
-				exercise.save(function(err) {
-					if (err)
-						res.send(err);
+				exercise.save()
+					.then(exercise => { 
+						res.json({ message: 'Se ha modificado la estructura.' }) 
+					})
 
-					res.json({ message: 'Ejercicio modificado.' });
-				});
+					.catch(err => res.status(500).send("No se ha ingresado una estructura adecuada."))
 
 			})
 
