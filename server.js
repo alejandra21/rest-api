@@ -147,7 +147,7 @@ router.route('/')
 
 			})
 
-			.catch(err => res.status(500).send("Formato de ID incorrecto."))
+			.catch(err => res.status(404).send("No existe un elemento con el ID introducido."))
 
 	});
 
