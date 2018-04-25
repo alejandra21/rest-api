@@ -16,19 +16,19 @@ Esta API se construyó haciendo uso del tutorial que se encuentra en el siguient
 ## El API  responder bajo los siguientes endpoints
 
 Para agregar un nuevo elemento en la base de datos:
-- POST /exercises 
+- POST localhost:8080/exercises 
 
 Para listr todos los elementos de la base de datos:
-- GET /exercises 
+- GET localhost:8080/exercises 
 
 Para listar un elemeto en especifico de la basa de datos:
-- GET /exercises/:id 
+- GET localhost:8080/exercises/:id 
 
 Para modificar un elemento especifico de la base de datos:
-- PUT /exercises
+- PUT localhost:8080/exercises
 
 Para eliminar un elemento especifico de la base de datos:
-- DELETE /exercises/:id
+- DELETE localhost:8080/exercises/:id
 
 ## Estructura de datos
 
