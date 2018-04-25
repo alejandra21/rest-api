@@ -100,7 +100,7 @@ router.route('/')
 			.catch(err => res.status(500).send("Problemas en el sistema."))
 	})
 
-	// update the exercise 
+	// update the exercise (accessed at PUT http://localhost:8080/exercises)
 	.put(function(req, res) {
 
 		Exercise.findById(req.body.id)
@@ -122,6 +122,7 @@ router.route('/')
 					exercise.timer = {};
 				}
 
+				// delete arrays' info
 				exercise.lights = [];
 				exercise.music = [];
 				exercise.videoTutor = [];
@@ -152,7 +153,7 @@ router.route('/')
 // ----------------------------------------------------
 router.route('/:id')
 
-	// get the exercise with  id
+	// get the exercise with  id (accessed at GET http://localhost:8080/exercises/:id)
 	.get(function(req, res) {
 		Exercise.findById(req.params.id)
 			.then(exercise => {
@@ -163,7 +164,7 @@ router.route('/:id')
 		
 	})
 
-	// delete the exercises with id
+	// delete the exercises with id (accessed at DELETE http://localhost:8080/exercises/:id)
 	.delete(function(req, res) {
 		Exercise.remove({
 			_id: req.params.id
