@@ -33,37 +33,34 @@ Para eliminar un elemento especifico de la base de datos:
 ## Estructura de datos
 
 ```json
-   {
-        "id": "1",
-        "name": "Presentación",
-        "typeExercise": "exercise",
-        "mainImage": "urlimagen.jpg",
-        "levelDifficulty": 1,
-        "timer": {
+{
+	"name": "Prueba",
+    "typeExercise": "exercise",
+    "mainImage": "urlimagen.jpg",
+    "levelDifficulty": 1,
+    "creationDate": "2017-11-07",
+    "timer": {
             "duration": 180
-        },
-        "lights": [
+    },
+            "lights": [
             {
-                "colorCode": “300, 30, 1"
+                "colorCode": "300, 30, 1"
             }
         ],
         "music": [
             {
-                "name": “name example",
-				"sourcePath": “home/asd/asd.mp3",
-				"volumen": 1
-			}
-        ],
-        "videoTutor": [
-            {
-                "name": "",
-                "sourcePath": “home/asd/asd.mp4"
-			}
-        ],
-        "createdBy": "wrojas",
-        "creationDate": "2017-11-07",
-        "status": "enabled"
-    }	
+                "name": "name example",
+	"sourcePath": "home/asd/asd.mp3",
+	"volumen": 1
+	}
+	        ],
+	        "videoTutor": [
+	            {
+	                "name": "",
+	                "sourcePath": "home/asd/asd.mp4"
+	}
+	        ]
+}	
 
 ```
 
