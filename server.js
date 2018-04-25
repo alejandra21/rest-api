@@ -37,19 +37,16 @@ var Exercise     = require('./app/models/exercise');
 // create our router
 var router = express.Router();
 
-// middleware to use for all requests
-router.use(function(req, res, next) {
-	// do logging
-	console.log('Something is happening.');
-	next();
-});
-
 function addArray(array, db_element) {
 
-    for (var i = 0; i < array.length ; i++) {
-        db_element.push(array[i]);
-    } 
-    console.log(db_element);
+	if (array) {
+
+	    for (var i = 0; i < array.length ; i++) {
+	        db_element.push(array[i]);
+	    } 
+		
+	}
+
 }
 
 // on routes that end in /exercises
@@ -62,30 +59,38 @@ router.route('/')
 		var exercise = new Exercise();
 
 		// create a new instance of the Exercise model
-		exercise.name            = req.body.name;  // set the exercises name (comes from the request)
+		exercise.name            = req.body.name; 
 		exercise.typeExercise    = req.body.typeExercise;
 		exercise.mainImage       = req.body.mainImage;
 		exercise.levelDifficulty = req.body.levelDifficulty;
 		exercise.createdBy       = req.body.createdBy;
 		exercise.creationDate    = req.body.creationDate; 
 		exercise.status          = req.body.status;
-		exercise.timer.duration  = req.body.timer.duration;
 
+		if (req.body.timer) {
+			
+			exercise.timer.duration  = req.body.timer.duration;
+		}
 
+		// add lights elements to the new instance
 		addArray(req.body.lights, exercise.lights);
+
+		// add music elements to the new instance
 		addArray(req.body.music, exercise.music);
+
+		// add videoTutor elements to the new instance
 		addArray(req.body.videoTutor, exercise.videoTutor);
 
 		exercise.save()
 			.then(exercise => { 
-				res.json({ message: 'Exercise created!' }) 
+				res.json({ message: 'Se ha creado un nuevo elemento en la base de datos' }) 
 			})
 
 			.catch(err => res.status(500).send("No se ha ingresado una estructura adecuada."))
 		
 	})
 
-	// get all the exercises (accessed at GET http://localhost:8080/api/exercises)
+	// get all the exercises (accessed at GET http://localhost:8080/exercises)
 	.get(function(req, res) {
 		Exercise.find()
 			.then(exercises => { 
@@ -93,13 +98,61 @@ router.route('/')
 			})
 			
 			.catch(err => res.status(500).send("Problemas en el sistema."))
+	})
+
+	// update the exercise 
+	.put(function(req, res) {
+
+		Exercise.findById(req.body.id)
+
+			.then(exercise => { 
+
+				exercise.name            = req.body.name; 
+				exercise.typeExercise    = req.body.typeExercise;
+				exercise.mainImage       = req.body.mainImage;
+				exercise.levelDifficulty = req.body.levelDifficulty;
+				exercise.createdBy       = req.body.createdBy;
+				exercise.creationDate    = req.body.creationDate; 
+				exercise.status          = req.body.status;
+
+				if (req.body.timer) {
+					exercise.timer.duration  = req.body.timer.duration;
+				}
+				else{
+					exercise.timer = {};
+				}
+
+				exercise.lights = [];
+				exercise.music = [];
+				exercise.videoTutor = [];
+
+				// update lights elements to the new instance
+				addArray(req.body.lights, exercise.lights);
+
+				// update music elements to the new instance
+				addArray(req.body.music, exercise.music);
+
+				// update videoTutor elements to the new instance
+				addArray(req.body.videoTutor, exercise.videoTutor);
+
+				exercise.save(function(err) {
+					if (err)
+						res.send(err);
+
+					res.json({ message: 'Ejercicio modificado.' });
+				});
+
+			})
+
+			.catch(err => res.status(500).send("Formato de ID incorrecto."))
+
 	});
 
 
 // ----------------------------------------------------
 router.route('/:id')
 
-	// get the bear with that id
+	// get the exercise with  id
 	.get(function(req, res) {
 		Exercise.findById(req.params.id)
 			.then(exercise => {
@@ -110,7 +163,7 @@ router.route('/:id')
 		
 	})
 
-	// delete the bear with this id
+	// delete the exercises with id
 	.delete(function(req, res) {
 		Exercise.remove({
 			_id: req.params.id
