@@ -44,6 +44,14 @@ router.use(function(req, res, next) {
 	next();
 });
 
+function addArray(array, db_element) {
+
+    for (var i = 0; i < array.length ; i++) {
+        db_element.push(array[i]);
+    } 
+    console.log(db_element);
+}
+
 // on routes that end in /exercises
 // ----------------------------------------------------
 router.route('/')
@@ -51,34 +59,40 @@ router.route('/')
 	// create a exercise (accessed at POST http://localhost:8080/exercises)
 	.post(function(req, res) {
 		
-		var exercise = new Exercise();		// create a new instance of the Exercise model
+		var exercise = new Exercise();
+
+		// create a new instance of the Exercise model
 		exercise.name            = req.body.name;  // set the exercises name (comes from the request)
 		exercise.typeExercise    = req.body.typeExercise;
 		exercise.mainImage       = req.body.mainImage;
 		exercise.levelDifficulty = req.body.levelDifficulty;
 		exercise.createdBy       = req.body.createdBy;
 		exercise.creationDate    = req.body.creationDate; 
-		exercise.status          = req.body.status; 
+		exercise.status          = req.body.status;
+		exercise.timer.duration  = req.body.timer.duration;
 
-		console.log(req.body);
-		exercise.save(function(err) {
-			if (err)
-				res.send(err);
 
-			res.json({ message: 'Exercise created!' });
-		});
+		addArray(req.body.lights, exercise.lights);
+		addArray(req.body.music, exercise.music);
+		addArray(req.body.videoTutor, exercise.videoTutor);
 
+		exercise.save()
+			.then(meeting => { 
+				res.json({ message: 'Exercise created!' }) 
+			})
+
+			.catch(err => res.status(500).send("No se ha ingresado una estructura adecuada."))
 		
 	})
 
 	// get all the exercises (accessed at GET http://localhost:8080/api/exercises)
 	.get(function(req, res) {
-		Exercise.find(function(err, exercises) {
-			if (err)
-				res.send(err);
-
-			res.json(exercises);
-		});
+		Exercise.find()
+			.then(exercises => { 
+				res.json(exercises) 
+			})
+			
+			.catch(err => res.status(500).send("Problemas en el sistema."))
 	});
 
 // REGISTER OUR ROUTES -------------------------------
