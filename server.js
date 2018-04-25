@@ -77,7 +77,7 @@ router.route('/')
 		addArray(req.body.videoTutor, exercise.videoTutor);
 
 		exercise.save()
-			.then(meeting => { 
+			.then(exercise => { 
 				res.json({ message: 'Exercise created!' }) 
 			})
 
@@ -93,6 +93,34 @@ router.route('/')
 			})
 			
 			.catch(err => res.status(500).send("Problemas en el sistema."))
+	});
+
+
+// ----------------------------------------------------
+router.route('/:id')
+
+	// get the bear with that id
+	.get(function(req, res) {
+		Exercise.findById(req.params.id)
+			.then(exercise => {
+				res.json(exercise);
+				
+			})
+			.catch(err => res.status(500).send("Formato de ID incorrecto."))
+		
+	})
+
+	// delete the bear with this id
+	.delete(function(req, res) {
+		Exercise.remove({
+			_id: req.params.id
+		})
+			.then(exercise => {
+				res.json({ message: 'El elemento se ha eliminado de forma correcta.' });
+				
+			})
+			.catch(err => res.status(500).send("Formato de ID incorrecto."))
+
 	});
 
 // REGISTER OUR ROUTES -------------------------------
