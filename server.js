@@ -2,10 +2,11 @@
 // =============================================================================
 
 // call the packages we need
-var express    = require('express');
-var bodyParser = require('body-parser');
-var app        = express();
-var morgan     = require('morgan');
+var express       = require('express');
+var bodyParser    = require('body-parser');
+var app           = express();
+var morgan        = require('morgan');
+var autoIncrement = require('mongoose-auto-increment');
 
 // configure app
 app.use(morgan('dev')); // log requests to the console
@@ -18,7 +19,10 @@ var port     = process.env.PORT || 8080; // set our port
 
 // DATABASE SETUP
 var mongoose   = require('mongoose');
-mongoose.connect('mongodb://127.0.0.1:27017/restApi'); // connect to our database
+var connection = mongoose.connect('mongodb://127.0.0.1:27017/restApi'); // connect to our database
+
+
+autoIncrement.initialize(connection);
 
 // Handle the connection event
 var db = mongoose.connection;

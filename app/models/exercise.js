@@ -1,5 +1,6 @@
 var mongoose     = require('mongoose');
 var Schema       = mongoose.Schema;
+var autoIncrement = require('mongoose-auto-increment');
 
 var ExerciseSchema   = new Schema({
 	name: String,
@@ -26,4 +27,5 @@ var ExerciseSchema   = new Schema({
    	status          : String
 });
 
+ExerciseSchema.plugin(autoIncrement.plugin, 'ExerciseSchema');
 module.exports = mongoose.model('ExerciseSchema', ExerciseSchema);
