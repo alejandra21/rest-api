@@ -71,7 +71,7 @@ Es necesario incluir el id en el JSON que se le enviará al backend. Un ejemplo 
 ```json
  
 	{
-		"id": "5ae00ef80d94dc08611b86a1",
+		"id": "5",
 		"name": "Prueba5",
 	    "typeExercise": "test",
 	    "mainImage": "ping.jpg",

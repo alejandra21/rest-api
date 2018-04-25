@@ -53,6 +53,31 @@ function addArray(array, db_element) {
 
 }
 
+function setDBelements(exercise,request){
+
+	// excercise: is the new db instance
+	// request  : is the info that de user has sent
+
+	exercise.name            = request.name; 
+	exercise.typeExercise    = request.typeExercise;
+	exercise.mainImage       = request.mainImage;
+	exercise.levelDifficulty = request.levelDifficulty;
+	exercise.createdBy       = request.createdBy;
+	exercise.creationDate    = request.creationDate; 
+	exercise.status          = request.status;
+
+
+	// add lights elements to the new instance
+	addArray(request.lights, exercise.lights);
+
+	// add music elements to the new instance
+	addArray(request.music, exercise.music);
+
+	// add videoTutor elements to the new instance
+	addArray(request.videoTutor, exercise.videoTutor);
+
+}
+
 // on routes that end in /exercises
 // ----------------------------------------------------
 router.route('/')
@@ -60,30 +85,17 @@ router.route('/')
 	// create a exercise (accessed at POST http://localhost:8080/exercises)
 	.post(function(req, res) {
 		
+		// create a new instance of the Exercise model
 		var exercise = new Exercise();
 
-		// create a new instance of the Exercise model
-		exercise.name            = req.body.name; 
-		exercise.typeExercise    = req.body.typeExercise;
-		exercise.mainImage       = req.body.mainImage;
-		exercise.levelDifficulty = req.body.levelDifficulty;
-		exercise.createdBy       = req.body.createdBy;
-		exercise.creationDate    = req.body.creationDate; 
-		exercise.status          = req.body.status;
+		// Set DB elements
+		setDBelements(exercise,req.body);
 
+		// Set timer
 		if (req.body.timer) {
 			
 			exercise.timer.duration  = req.body.timer.duration;
 		}
-
-		// add lights elements to the new instance
-		addArray(req.body.lights, exercise.lights);
-
-		// add music elements to the new instance
-		addArray(req.body.music, exercise.music);
-
-		// add videoTutor elements to the new instance
-		addArray(req.body.videoTutor, exercise.videoTutor);
 
 		exercise.save()
 			.then(exercise => { 
@@ -111,14 +123,6 @@ router.route('/')
 
 			.then(exercise => { 
 
-				exercise.name            = req.body.name; 
-				exercise.typeExercise    = req.body.typeExercise;
-				exercise.mainImage       = req.body.mainImage;
-				exercise.levelDifficulty = req.body.levelDifficulty;
-				exercise.createdBy       = req.body.createdBy;
-				exercise.creationDate    = req.body.creationDate; 
-				exercise.status          = req.body.status;
-
 				if (req.body.timer) {
 					exercise.timer.duration  = req.body.timer.duration;
 				}
@@ -131,14 +135,8 @@ router.route('/')
 				exercise.music = [];
 				exercise.videoTutor = [];
 
-				// update lights elements to the new instance
-				addArray(req.body.lights, exercise.lights);
-
-				// update music elements to the new instance
-				addArray(req.body.music, exercise.music);
-
-				// update videoTutor elements to the new instance
-				addArray(req.body.videoTutor, exercise.videoTutor);
+				// Set DB elements
+				setDBelements(exercise,req.body);
 
 				exercise.save(function(err) {
 					if (err)
