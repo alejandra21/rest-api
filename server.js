@@ -24,7 +24,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/restApi'); // connect to our databas
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 
-db.once('openUri', function() {
+db.once('open', function() {
   console.log("DB connection alive");
 });
 
@@ -183,4 +183,3 @@ app.use('/exercises', router);
 // START THE SERVER
 // =============================================================================
 app.listen(port);
-console.log('Magic happens on port ' + port);
