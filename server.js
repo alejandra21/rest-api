@@ -58,6 +58,7 @@ function setDBelements(exercise,request){
 	// excercise: is the new db instance
 	// request  : is the info that de user has sent
 
+	console.log("Estoy en la funcion: "+JSON.stringify(request));
 	exercise.name            = request.name; 
 	exercise.typeExercise    = request.typeExercise;
 	exercise.mainImage       = request.mainImage;
@@ -87,6 +88,8 @@ router.route('/')
 		
 		// create a new instance of the Exercise model
 		var exercise = new Exercise();
+
+		console.log("Estoy en el post: "+JSON.stringify(req.body));
 
 		// Set DB elements
 		setDBelements(exercise,req.body);
