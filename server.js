@@ -6,7 +6,6 @@ var express       = require('express');
 var bodyParser    = require('body-parser');
 var app           = express();
 var morgan        = require('morgan');
-var autoIncrement = require('mongoose-auto-increment');
 
 // configure app
 app.use(morgan('dev')); // log requests to the console
@@ -19,10 +18,8 @@ var port     = process.env.PORT || 8080; // set our port
 
 // DATABASE SETUP
 var mongoose   = require('mongoose');
-var connection = mongoose.connect('mongodb://127.0.0.1:27017/restApi'); // connect to our database
+mongoose.connect('mongodb://alejandra:rest-api@ds259119.mlab.com:59119/rest-api'); // connect to our database
 
-
-autoIncrement.initialize(connection);
 
 // Handle the connection event
 var db = mongoose.connection;
@@ -58,7 +55,6 @@ function setDBelements(exercise,request){
 	// excercise: is the new db instance
 	// request  : is the info that de user has sent
 
-	console.log("Estoy en la funcion: "+JSON.stringify(request));
 	exercise.name            = request.name; 
 	exercise.typeExercise    = request.typeExercise;
 	exercise.mainImage       = request.mainImage;
@@ -77,8 +73,6 @@ function setDBelements(exercise,request){
 	// add videoTutor elements to the new instance
 	addArray(request.videoTutor, exercise.videoTutor);
 
-	console.log("Estoy en la funcion (exercise): "+JSON.stringify(exercise));
-
 }
 
 // on routes that end in /exercises
@@ -91,8 +85,6 @@ router.route('/')
 		// create a new instance of the Exercise model
 		var exercise = new Exercise();
 
-		console.log("Estoy en el post: "+JSON.stringify(req.body));
-
 		// Set DB elements
 		setDBelements(exercise,req.body);
 
@@ -102,7 +94,6 @@ router.route('/')
 			exercise.timer.duration  = req.body.timer.duration;
 		}
 
-		console.log("Estoy en el post (exercise): "+JSON.stringify(exercise));
 
 		exercise.save()
 			.then(exercise => { 
