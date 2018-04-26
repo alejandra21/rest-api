@@ -15,16 +15,21 @@ Al momento de probar el proyecto se utilizaron las siguientes versiones:
 ## Pasos para correr el proyecto
 
 - Se debe clonar el repositorio de git haciendo uso del siguiente comando:
-`git clone git@github.com:alejandra21/rest-api.git`
-
+```bash
+git clone git@github.com:alejandra21/rest-api.git
+```
 - Nos movemos al directorio rest-api:
-`cd rest-api`
-
-- Luego se deben instalar las dependencias del proyecto:
-`npm install`
-
+```bash
+cd rest-api
+```
+- Luego se deben instalar las dependencias del proyecto
+```bash
+npm install
+```
 - Finalmente, se debe correr el servidor haciendo uso del comando presentado a continuación:
-`node server.js`
+```bash
+node server.js
+```
 
 ## El API  responder bajo los siguientes endpoints
 
