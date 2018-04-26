@@ -1,4 +1,4 @@
-# API RESTful haciendo uso de Node y Express
+# API RESTful haciendo uso de Node, Express y MongoDB 2.6.10
 
 Esta API se construyó haciendo uso del tutorial que se encuentra en el siguiente link: [Link del tutorial](http://scotch.io/tutorials/javascript/build-a-restful-api-using-node-and-express-4).
 
@@ -19,6 +19,9 @@ Al momento de probar el proyecto se utilizaron las siguientes versiones:
 
 - Instalar MongoDB 2.6.10 (en Ubuntu)
 `sudo apt-get install mongodb`
+
+- Nos movemos al directorio rest-api:
+`cd rest-api`
 
 - Luego se deben instalar las dependencias del proyecto
 `npm install`
@@ -47,7 +50,7 @@ Para eliminar un elemento especifico de la base de datos:
 
 ```json
 {
-	"name": "Prueba",
+    "name": "Prueba",
     "typeExercise": "exercise",
     "mainImage": "urlimagen.jpg",
     "levelDifficulty": 1,
@@ -84,8 +87,8 @@ Es necesario incluir el id en el JSON que se le enviará al backend. Un ejemplo 
 ```json
  
 	{
-		"id": "5",
-		"name": "Prueba5",
+	    "id": "5",
+	    "name": "Prueba5",
 	    "typeExercise": "test",
 	    "mainImage": "ping.jpg",
 	    "levelDifficulty": 10,
