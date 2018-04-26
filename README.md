@@ -1,11 +1,24 @@
 # API RESTful haciendo uso de Node y Express
 
-Esta API se construyó haciendo uso del tutorial que se encuentra en el siguiente link: [Link del tutorial](http://scotch.io/tutorials/javascript/build-a-restful-api-using-node-and-express-4)
+Esta API se construyó haciendo uso del tutorial que se encuentra en el siguiente link: [Link del tutorial](http://scotch.io/tutorials/javascript/build-a-restful-api-using-node-and-express-4).
+
+Nota: El proyecto ha sido probado únicamente en Ubuntu 16.04.4 LTS
+
+## Requerimientos
+
+Al momento de probar el proyecto se utilizaron las siguientes versiones:
+
+- Node 8.8.1
+- npm 6.0.0
+- MongoDB 2.6.10
 
 ## Pasos para correr el proyecto
 
 - Se debe clonar el repositorio de git haciendo uso del siguiente comando:
 `git clone git@github.com:alejandra21/rest-api.git`
+
+- Instalar MongoDB 2.6.10 (en Ubuntu)
+`sudo apt-get install mongodb`
 
 - Luego se deben instalar las dependencias del proyecto
 `npm install`

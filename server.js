@@ -77,6 +77,8 @@ function setDBelements(exercise,request){
 	// add videoTutor elements to the new instance
 	addArray(request.videoTutor, exercise.videoTutor);
 
+	console.log("Estoy en la funcion (exercise): "+JSON.stringify(exercise));
+
 }
 
 // on routes that end in /exercises
@@ -99,6 +101,8 @@ router.route('/')
 			
 			exercise.timer.duration  = req.body.timer.duration;
 		}
+
+		console.log("Estoy en el post (exercise): "+JSON.stringify(exercise));
 
 		exercise.save()
 			.then(exercise => { 
